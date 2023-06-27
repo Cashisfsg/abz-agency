@@ -1,25 +1,41 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Suspense } from "react";
+import { ThemeProvider } from "styled-components";
+
+import GlobalStyle from "./styles/styled/GlobalStyles";
+import { defaultTheme } from "./styles/theme/defaultTheme";
+
+// import { Flex as Main } from "./components/UI/Flex";
+// import Header from "./containers/Header";
+// import Banner from "./containers/Banner";
+// import Preloader from "./components/UI/Preloader";
+
+import { MainPage } from "pages";
+
+import Observer from "./components/Observer";
+const Users = React.lazy(() => import("./containers/Users"));
+const AddUser = React.lazy(() => import("./containers/AddUser"));
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    return (
+        <ThemeProvider theme={defaultTheme}>
+            <GlobalStyle />
+            <MainPage />
+            {/* <Header />
+            <Main as={"main"} column gap={"140px"} pb={"100px"}>
+                <Banner />
+                <Observer>
+                    <Suspense fallback={<Preloader />}>
+                        <Users />
+                    </Suspense>
+                </Observer>
+                <Observer>
+                    <Suspense fallback={<Preloader />}>
+                        <AddUser />
+                    </Suspense>
+                </Observer>
+            </Main> */}
+        </ThemeProvider>
+    );
 }
 
 export default App;
