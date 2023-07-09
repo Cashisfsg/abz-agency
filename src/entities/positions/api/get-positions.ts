@@ -1,11 +1,10 @@
+import { axios } from "shared";
+import { GetPositionsResponse } from "../types";
+
 export const getPositions = async () => {
-    const response = await fetch(
-        `https://frontend-test-assignment-api.abz.agency/api/v1/positions`
-    );
-
-    const { positions } = await response.json();
-
-    console.log(positions);
+    const {
+        data: { positions }
+    } = await axios.get<GetPositionsResponse>(`/positions`);
 
     return positions;
 };

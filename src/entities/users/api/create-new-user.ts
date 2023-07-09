@@ -1,36 +1,31 @@
-import { User, GetTokenResponse } from "../types";
+import { axios } from "shared";
+import { NewUser, GetTokenResponse, CreateNewUserResponse } from "../types";
 
-const getToken = async (): Promise<string> => {
-    const response = await fetch(
-        "https://frontend-test-assignment-api.abz.agency/api/v1/token"
-    );
-    const { token }: GetTokenResponse = await response.json();
+const getToken = async () => {
+    const {
+        data: { token }
+    } = await axios.get<GetTokenResponse>("/token");
+
     return token;
 };
 
-export const createNewUser = async (userFormData: User) => {
+export const createNewUser = async (userFormData: NewUser) => {
     const userData = new FormData();
-    userData.append("name", userFormData.name);
-    userData.append("email", userFormData.email);
-    userData.append("phone", userFormData.phone);
-    userData.append("position_id", userFormData.position_id);
-    userData.append("photo", userFormData.photo[0]);
 
-    const requestParams = {
-        method: "POST",
-        headers: {
-            Token: await getToken(),
-        },
+    Object.entries(userFormData).forEach(([key, value]) => {
+        userData.append(
+            key,
+            value instanceof FileList ? value[0] : (value as string)
+        );
+    });
 
-        body: userData,
-    };
-
-    const response = await fetch(
-        "https://frontend-test-assignment-api.abz.agency/api/v1/users",
-        requestParams
+    const { data } = await axios.post<CreateNewUserResponse>(
+        "/users",
+        userData,
+        {
+            headers: { Token: await getToken() }
+        }
     );
-    const user = await response.json();
-    console.log(user);
 
-    return user;
+    return data;
 };

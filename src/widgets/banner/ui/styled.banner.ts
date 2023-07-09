@@ -4,7 +4,7 @@ import { StyledContainer, StyledFlex } from "shared/ui";
 import BannerBackgroundImage from "../assets/banner-bg.jpg";
 
 export const StyledBanner = styled(StyledContainer).attrs({
-    as: "section",
+    as: "section"
 })`
     width: 100%;
     max-width: 1170px;
@@ -33,4 +33,12 @@ export const StyledBannerContent = styled(StyledFlex)`
     flex: 1 1 auto;
 
     color: #fff;
+
+    & > h1 {
+        margin-bottom: 1.25rem;
+    }
+
+    & > p {
+        margin-bottom: 2rem;
+    }
 `;

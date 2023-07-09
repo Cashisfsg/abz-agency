@@ -1,17 +1,21 @@
-import React from "react";
+import { memo } from "react";
 
 import { User } from "../../types";
-import { StyledCard } from "./styled.card";
+import { StyledCard } from "./styled.user-card";
 import { Tooltip } from "features/tooltip";
 
 interface UserCardProps {
     user: User;
 }
 
-export const UserCard: React.FC<UserCardProps> = ({ user }) => {
+export const UserCard: React.FC<UserCardProps> = memo(({ user }) => {
     return (
         <StyledCard>
-            <img src={user.photo} alt={user.name} loading="lazy" />
+            <img
+                src={user.photo}
+                alt={user.name}
+                loading="lazy"
+            />
             <p>{user.name}</p>
             <div>
                 <p>{user.position}</p>
@@ -29,4 +33,4 @@ export const UserCard: React.FC<UserCardProps> = ({ user }) => {
             </div>
         </StyledCard>
     );
-};
+});

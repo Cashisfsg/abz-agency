@@ -1,1 +1,1 @@
-export * from "./Styled.header";
+export * from "./styled.header";

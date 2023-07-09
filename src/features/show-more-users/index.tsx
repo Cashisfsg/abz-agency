@@ -1,7 +1,5 @@
-import React from "react";
-
+import { useUsersQuery } from "entities/users";
 import { StyledButton } from "shared/ui";
-import { useUsersQuery } from "../../entities/users/model/use-users-query";
 
 export const ShowMoreUsersButton = ({
     children,
@@ -11,9 +9,9 @@ export const ShowMoreUsersButton = ({
 }) => {
     const { isFetching, hasNextPage, fetchNextPage } = useUsersQuery();
 
-    const handleClick: React.MouseEventHandler<HTMLButtonElement> = async (
-        event
-    ) => {
+    const handleClick: React.MouseEventHandler<
+        HTMLButtonElement
+    > = async event => {
         fetchNextPage();
     };
 

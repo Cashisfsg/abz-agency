@@ -5,21 +5,32 @@ import { StyledInput } from "shared/ui";
 
 import { StyledInputField, StyledInputRadio } from "./ui";
 
-interface UserData {
-    email: string;
-    phone: string;
-    position_id: string;
-    photo: any;
-}
+// interface InputFieldProps {
+//     type?: "text" | "email" | "tel" | "radio" | "file";
+//     label: string;
+//     value?: string | number;
+//     "aria-invalid"?: boolean;
+//     "aria-errormessage"?: string | undefined;
+//     helperText?: string;
+// }
 
-interface InputFieldProps {
-    type?: "text" | "email" | "tel" | "radio" | "file";
-    label: string;
-    value?: string | number;
-    "aria-invalid": boolean;
-    "aria-errormessage": string;
-    helperText?: string;
-}
+type InputFieldProps =
+    | {
+          type?: "text" | "email" | "tel";
+          label: string;
+          value?: never;
+          "aria-invalid": boolean;
+          "aria-errormessage": string | undefined;
+          helperText?: string;
+      }
+    | {
+          type: "radio";
+          label: string;
+          value: string | number;
+          "aria-invalid": undefined;
+          "aria-errormessage": never;
+          helperText: never;
+      };
 
 export const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
     (
@@ -37,7 +48,12 @@ export const InputField = React.forwardRef<HTMLInputElement, InputFieldProps>(
         if (type === "radio")
             return (
                 <StyledInputRadio>
-                    <input type={type} value={value} ref={ref} {...props} />
+                    <input
+                        type={type}
+                        value={value}
+                        ref={ref}
+                        {...props}
+                    />
                     <span>{label}</span>
                 </StyledInputRadio>
             );

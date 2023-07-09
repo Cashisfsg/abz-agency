@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const StyledUsersList = styled.ul`
+export const StyledUsersList = styled.ul.attrs({ role: "list" })`
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 370px));
     gap: 30px;

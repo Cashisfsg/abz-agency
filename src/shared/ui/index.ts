@@ -7,3 +7,6 @@ export * from "./styled.section";
 export * from "./styled.input";
 export * from "./styled.logo";
 export * from "./styled.success";
+export * from "./styled.form";
+export * from "./input";
+export * from "./spinner";

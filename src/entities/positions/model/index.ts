@@ -1,1 +1,1 @@
-export * from "./use-positions-query";
+export * from "./fetch-positions";

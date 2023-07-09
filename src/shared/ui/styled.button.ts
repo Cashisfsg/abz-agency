@@ -5,6 +5,7 @@ export const StyledButton = styled.button`
     width: max-content;
     padding: 4px 18px;
 
+    font-family: Nunito;
     font-size: 1rem;
     line-height: 1.625;
 

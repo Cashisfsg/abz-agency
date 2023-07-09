@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const StyledCard = styled.li`
+export const StyledCard = styled.li.attrs({ role: "listitem" })`
     width: 100%;
 
     padding: 1.25rem;

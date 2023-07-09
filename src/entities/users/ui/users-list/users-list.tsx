@@ -1,6 +1,6 @@
 import { StyledUsersList } from "./styled.users-list";
 import { UserCard } from "../user-card";
-import { useUsersQuery } from "../../model";
+import { useUsersQuery } from "../../lib";
 
 export const UsersList = () => {
     const { data, isFetched } = useUsersQuery();
@@ -9,16 +9,21 @@ export const UsersList = () => {
         <>
             {isFetched && data && (
                 <StyledUsersList>
-                    {data.pages
-                        .flatMap((data) => data?.users)
-                        .sort(
-                            (a, b) =>
-                                b.registration_timestamp -
-                                a.registration_timestamp
-                        )
-                        .map((user) => (
-                            <UserCard key={user.id} user={user} />
-                        ))}
+                    {data.pages &&
+                        data.pages.length &&
+                        data.pages
+                            .flatMap(data => data?.users)
+                            .sort(
+                                (a, b) =>
+                                    b.registration_timestamp -
+                                    a.registration_timestamp
+                            )
+                            .map(user => (
+                                <UserCard
+                                    key={user.id}
+                                    user={user}
+                                />
+                            ))}
                 </StyledUsersList>
             )}
         </>
