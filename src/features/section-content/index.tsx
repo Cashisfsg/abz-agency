@@ -18,15 +18,15 @@ export const SectionContent: React.FC<SectionContentProps> = ({
 }) => {
     const { ref, inView } = useInView({
         triggerOnce: true,
-        fallbackInView: true
-        // threshold: 0,
+        fallbackInView: true,
+        threshold: 1
     });
 
     return (
         <StyledSectionContent ref={ref}>
+            <StyledTitle>{title}</StyledTitle>
             {inView && (
                 <Suspense fallback={<pre>Loading...</pre>}>
-                    <StyledTitle>{title}</StyledTitle>
                     {content}
                     {button}
                 </Suspense>

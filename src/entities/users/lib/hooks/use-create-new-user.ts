@@ -1,4 +1,4 @@
-import { useQueryClient, useMutation } from "react-query";
+import { useQueryClient, useMutation } from "@tanstack/react-query";
 
 import { createNewUser } from "../../api";
 import { NewUser } from "../../types";

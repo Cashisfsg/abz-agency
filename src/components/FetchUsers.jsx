@@ -1,5 +1,5 @@
 import React from "react";
-import { useInfiniteQuery } from "react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
 
 import SkeletonCard from "./SkeletonCard";
 import UserCard from "./UserCard";
@@ -15,11 +15,11 @@ const Users = () => {
             ({ pageParam = { page: 1, count: 6 } }) => fetchUsers(pageParam),
             {
                 refetchOnWindowFocus: false,
-                getNextPageParam: (lastPage) => {
+                getNextPageParam: lastPage => {
                     return lastPage.page < lastPage.total_pages
                         ? { page: lastPage.page + 1, count: lastPage.count }
                         : undefined;
-                },
+                }
             }
         );
 
@@ -28,9 +28,12 @@ const Users = () => {
             {status !== "loading" && status !== "error" && (
                 <UsersContainer>
                     {data.pages
-                        .flatMap((data) => data?.users)
-                        .map((user) => (
-                            <UserCard key={user?.id} user={user} />
+                        .flatMap(data => data?.users)
+                        .map(user => (
+                            <UserCard
+                                key={user?.id}
+                                user={user}
+                            />
                         ))}
                 </UsersContainer>
             )}

@@ -1,19 +1,21 @@
-import { useInfiniteQuery, useQueryClient } from "react-query";
+import { useInfiniteQuery } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 
 import { getUsers } from "../../api";
-
-// interface getUsersProps {
-//     page?: number;
-//     count?: number;
-// }
+import { GetUsersResponse } from "../../types";
 
 export const useUsersQuery = () => {
-    // const queryClient = useQueryClient();
-    const query = useInfiniteQuery(
+    const query = useInfiniteQuery<
+        GetUsersResponse,
+        AxiosError,
+        GetUsersResponse,
+        string[]
+    >(
         ["users", "infinite"],
         ({ pageParam = { page: 1, count: 6 } }) => getUsers(pageParam),
         {
             refetchOnWindowFocus: false,
+            retry: 3,
             getNextPageParam: lastPage => {
                 return lastPage.page < lastPage.total_pages
                     ? { page: lastPage.page + 1, count: lastPage.count }

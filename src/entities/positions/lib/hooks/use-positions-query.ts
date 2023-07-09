@@ -1,5 +1,5 @@
 import { AxiosError } from "axios";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 
 import { getPositions } from "../../api";
 import { Position } from "../../types";
