@@ -1,18 +1,15 @@
-import { AxiosError } from "axios";
 import { useQuery } from "@tanstack/react-query";
 
 import { getPositions } from "../../api";
-import { Position } from "../../types";
 
 export const usePositionsQuery = () => {
-    const query = useQuery<Position[], AxiosError, Position[], string[]>(
-        ["positions"],
-        getPositions,
-        {
-            refetchOnWindowFocus: false,
-            retry: 3
-        }
-    );
+    const query = useQuery({
+        queryKey: ["positions"],
+        queryFn: getPositions,
+
+        refetchOnWindowFocus: false,
+        retry: 3
+    });
 
     return query;
 };

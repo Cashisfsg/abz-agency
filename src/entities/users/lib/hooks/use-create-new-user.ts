@@ -1,28 +1,47 @@
-import { useQueryClient, useMutation } from "@tanstack/react-query";
+import {
+    useQueryClient,
+    useMutation,
+    InfiniteData
+} from "@tanstack/react-query";
 
 import { createNewUser } from "../../api";
-import { NewUser } from "../../types";
+import { NewUser, GetUsersResponse } from "../../types";
 
 export const useCreateNewUser = () => {
     const queryClient = useQueryClient();
 
-    const createNewUserMutation = useMutation(
-        (userFormData: NewUser) => createNewUser(userFormData),
-        {
-            onMutate: () => {
-                queryClient.setQueryData(["users", "infinite"], data => ({
-                    pages: [data.pages[0]],
-                    pageParams: [data.pageParams[0]]
-                }));
-            },
+    const createNewUserMutation = useMutation({
+        mutationKey: ["addUser"],
+        mutationFn: (userFormData: NewUser) => createNewUser(userFormData),
 
-            onSuccess: () => {
-                queryClient.invalidateQueries(["users", "infinite"], {
-                    exact: true
-                });
-            }
+        onMutate: () => {
+            queryClient.setQueryData(
+                ["users", "infinite"],
+                (data: InfiniteData<GetUsersResponse> | undefined) => {
+                    if (!data) return undefined;
+
+                    return {
+                        pages: data.pages.slice(0, 1),
+                        pageParams: data.pageParams.slice(0, 1)
+                    };
+                }
+            );
+        },
+
+        onSuccess: () => {
+            queryClient.invalidateQueries(
+                {
+                    queryKey: ["users", "infinite"],
+                    exact: true,
+                    refetchType: "active"
+                },
+                {
+                    throwOnError: true,
+                    cancelRefetch: true
+                }
+            );
         }
-    );
+    });
 
     return createNewUserMutation;
 };

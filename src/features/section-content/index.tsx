@@ -8,13 +8,11 @@ import { StyledSectionContent } from "./ui";
 interface SectionContentProps {
     title: string;
     content: React.ReactNode;
-    button: React.ReactElement;
 }
 
 export const SectionContent: React.FC<SectionContentProps> = ({
     title,
-    content,
-    button
+    content
 }) => {
     const { ref, inView } = useInView({
         triggerOnce: true,
@@ -30,7 +28,6 @@ export const SectionContent: React.FC<SectionContentProps> = ({
                     {content}
                 </Suspense>
             )}
-            {button}
         </StyledSectionContent>
     );
 };

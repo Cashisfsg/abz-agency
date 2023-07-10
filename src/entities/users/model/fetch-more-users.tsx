@@ -1,3 +1,5 @@
+import { useQueryClient, useMutationState } from "@tanstack/react-query";
+
 import { StyledButton } from "shared/ui";
 
 import { useUsersQuery } from "../lib";
@@ -12,14 +14,20 @@ export const FetchMoreUsersButton: React.FC<FetchMoreUsersButtonProps> = ({
 }) => {
     const { isFetching, hasNextPage, fetchNextPage } = useUsersQuery();
 
-    const handleClick: React.MouseEventHandler<HTMLButtonElement> = event => {
+    const mutationState = useMutationState();
+
+    const handleClick: React.MouseEventHandler<HTMLButtonElement> = () => {
         fetchNextPage();
     };
 
     return (
         <StyledButton
             onClick={handleClick}
-            disabled={!hasNextPage || isFetching}
+            disabled={
+                !hasNextPage ||
+                isFetching ||
+                mutationState.at(-1)?.status === "pending"
+            }
             {...props}
         >
             {children}

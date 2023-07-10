@@ -15,7 +15,7 @@ const FetchUsers: React.FC<FetchUsersProps> = ({
     const { data, status, error } = useUsersQuery();
 
     if (status === "error") return renderError(error.message);
-    if (status === "loading") return loadingFallback;
+    if (status === "pending") return loadingFallback;
     if (data && data.pages && data.pages.length !== 0)
         return renderSuccess(
             data.pages

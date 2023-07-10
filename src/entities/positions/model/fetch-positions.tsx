@@ -17,7 +17,7 @@ export const FetchPositions: React.FC<FetchPositionsProps> = ({
     const { data: positions, status, error } = usePositionsQuery();
 
     if (status === "error") return renderError(error.message);
-    if (status === "loading") return loadingFallback;
+    if (status === "pending") return loadingFallback;
     if (positions && positions.length !== 0) return renderSuccess(positions);
 
     return <></>;

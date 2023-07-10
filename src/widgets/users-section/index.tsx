@@ -1,7 +1,7 @@
 import { lazy } from "react";
 
 import { SectionContent } from "features";
-import { UsersList, FetchMoreUsersButton } from "entities/users";
+import { UsersList } from "entities/users";
 
 const FetchUsers = lazy(() => import("entities/users/model/fetch-users"));
 
@@ -14,7 +14,6 @@ export const UsersSection = () => {
                     renderSuccess={data => <UsersList users={data} />}
                 />
             }
-            button={<FetchMoreUsersButton>Show more</FetchMoreUsersButton>}
         />
     );
 };
