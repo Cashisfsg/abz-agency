@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/abz-agency/static/css/main.ce90e86c.css",
+    "main.js": "/abz-agency/static/js/main.d48b8b19.js",
+    "static/js/362.e5bb3a19.chunk.js": "/abz-agency/static/js/362.e5bb3a19.chunk.js",
+    "static/js/118.2a9de049.chunk.js": "/abz-agency/static/js/118.2a9de049.chunk.js",
+    "static/media/banner-bg.jpg": "/abz-agency/static/media/banner-bg.c5bada202e0820e78d98.jpg",
+    "static/media/success-image.svg": "/abz-agency/static/media/success-image.0d3202ba11b04fa7364b0f83ce42aea5.svg",
+    "static/media/logo.svg": "/abz-agency/static/media/logo.8bb55362d01d55393ccc5476d96f0c14.svg",
+    "static/media/spinner.svg": "/abz-agency/static/media/spinner.0aaf07f39acaa32ce036564ce35dba88.svg",
+    "index.html": "/abz-agency/index.html",
+    "main.d48b8b19.js.map": "/abz-agency/static/js/main.d48b8b19.js.map",
+    "362.e5bb3a19.chunk.js.map": "/abz-agency/static/js/362.e5bb3a19.chunk.js.map",
+    "118.2a9de049.chunk.js.map": "/abz-agency/static/js/118.2a9de049.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ce90e86c.css",
+    "static/js/main.d48b8b19.js"
+  ]
+}
