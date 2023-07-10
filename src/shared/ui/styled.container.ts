@@ -4,19 +4,15 @@ export const StyledContainer = styled.div`
     width: 100%;
     max-width: 1170px;
     min-width: 360px;
-    padding-inline: 0px;
+
     margin-inline: auto;
+    padding-inline: calc(4rem - min(4rem, (100dvw - 1170px) / 2));
 
     @media (max-width: 1170px) {
-        padding-inline: 4rem;
-        /* padding-inline: clamp(2rem, 0.75rem + 4.5dvw, 4rem); */
+        padding-inline: clamp(2rem, -12rem + 22vw, 4rem);
     }
 
     @media (max-width: 1024px) {
-        padding-inline: 2rem;
-    }
-
-    @media (max-width: 768px) {
-        padding-inline: 1rem;
+        padding-inline: clamp(1rem, -2rem + 6.25vw, 2rem);
     }
 `;
