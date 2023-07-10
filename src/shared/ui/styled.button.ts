@@ -17,7 +17,7 @@ export const StyledButton = styled.button`
     transition: color 0.3s ease-in-out, background-color 0.3s ease-in-out;
 
     border: none;
-    outline: none;
+    /* outline: none; */
     cursor: pointer;
 
     :hover {

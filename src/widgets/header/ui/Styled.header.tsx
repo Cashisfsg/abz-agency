@@ -18,5 +18,5 @@ export const StyledHeaderContent = styled(StyledContainer)`
     justify-content: space-between;
     align-items: center;
 
-    gap: 2rem;
+    /* gap: 2rem; */
 `;

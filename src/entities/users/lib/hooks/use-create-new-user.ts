@@ -10,9 +10,10 @@ export const useCreateNewUser = () => {
         (userFormData: NewUser) => createNewUser(userFormData),
         {
             onMutate: () => {
-                queryClient.setQueryData(["users", "infinite"], data => {
-                    return { pages: [data.pages[0]], pageParams: [undefined] };
-                });
+                queryClient.setQueryData(["users", "infinite"], data => ({
+                    pages: [data.pages[0]],
+                    pageParams: [data.pageParams[0]]
+                }));
             },
 
             onSuccess: () => {

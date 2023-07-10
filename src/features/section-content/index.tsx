@@ -26,11 +26,11 @@ export const SectionContent: React.FC<SectionContentProps> = ({
         <StyledSectionContent ref={ref}>
             <StyledTitle>{title}</StyledTitle>
             {inView && (
-                <Suspense fallback={<pre>Loading...</pre>}>
+                <Suspense fallback={<pre>Loading suspense...</pre>}>
                     {content}
-                    {button}
                 </Suspense>
             )}
+            {button}
         </StyledSectionContent>
     );
 };
