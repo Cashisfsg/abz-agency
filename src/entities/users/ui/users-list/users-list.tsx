@@ -1,9 +1,8 @@
-import { StyledButton } from "shared/ui";
-
 import { StyledUsersList } from "./styled.users-list";
 import { UserCard } from "../user-card";
-import { User } from "../../types";
 import { FetchMoreUsersButton } from "../../model";
+
+import { User } from "../../types";
 
 interface UsersListProps {
     users: User[];

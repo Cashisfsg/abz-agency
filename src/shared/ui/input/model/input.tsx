@@ -97,7 +97,10 @@ export const Input = forwardRef<HTMLInputElement, InputFieldProps>(
                             inputRef.current.files[0]?.name) ||
                             "Upload your image"}
                     </span>
-                    <output id="photo-error">
+                    <output
+                        id="photo-error"
+                        role="alert"
+                    >
                         {ariaInvalid && ariaErrorMessage}
                     </output>
                 </StyledInputTypeFile>
@@ -116,7 +119,10 @@ export const Input = forwardRef<HTMLInputElement, InputFieldProps>(
                     {...props}
                 />
                 {ariaErrorMessage ? (
-                    <output id={`${props.name}-error`}>
+                    <output
+                        id={`${props.name}-error`}
+                        role="alert"
+                    >
                         {ariaErrorMessage}
                     </output>
                 ) : (
