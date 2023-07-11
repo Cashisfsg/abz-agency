@@ -36,7 +36,6 @@ const CreateNewUserForm = () => {
 
     return (
         <>
-            {" "}
             {isSuccess ? (
                 <SuccessRegistration />
             ) : (

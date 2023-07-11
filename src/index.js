@@ -1,20 +1,17 @@
-import React, { Suspense } from "react";
+import React, { Suspense, lazy } from "react";
 import ReactDOM from "react-dom/client";
+
+import "./app/index.css";
+
 import Preloader from "./components/UI/Preloader";
-import "./index.css";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
-const App = React.lazy(() => import("./App"));
-
-const queryClient = new QueryClient();
+const App = lazy(() => import("./app"));
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
     <React.StrictMode>
         <Suspense fallback={<Preloader />}>
-            <QueryClientProvider client={queryClient}>
-                <App />
-            </QueryClientProvider>
+            <App />
         </Suspense>
     </React.StrictMode>
 );

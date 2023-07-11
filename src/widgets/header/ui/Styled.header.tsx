@@ -4,6 +4,7 @@ import { StyledContainer } from "shared/ui";
 export const StyledHeader = styled.header`
     min-height: 60px;
     height: 60px;
+    width: 100%;
 
     padding: 0.75rem 0 0.75rem;
 
