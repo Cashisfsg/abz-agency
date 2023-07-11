@@ -1,4 +1,4 @@
-import { useQueryClient, useMutationState } from "@tanstack/react-query";
+import { useMutationState } from "@tanstack/react-query";
 
 import { StyledButton } from "shared/ui";
 
