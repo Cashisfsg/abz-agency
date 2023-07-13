@@ -1,8 +1,7 @@
 import { createGlobalStyle } from "styled-components";
+import { ThemeType } from "styles/theme/defaultTheme";
 
-export const GlobalStyle = createGlobalStyle`
-
-
+export const GlobalStyle = createGlobalStyle<{ theme: ThemeType }>`
     *,
     *::after,
     *::before {
@@ -12,9 +11,6 @@ export const GlobalStyle = createGlobalStyle`
     }
 
     body {
-    
-   
-
         font-family: ${({ theme }) => theme.font.primary};
         line-height: 1.625;
         color: ${({ theme }) => theme.colors.text};

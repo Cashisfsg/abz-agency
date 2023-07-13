@@ -1,61 +1,72 @@
 import { useRef, useImperativeHandle, forwardRef } from "react";
+import { UseFormRegister } from "react-hook-form";
+
+import { NewUser } from "entities/users";
 import {
     StyledInputTypeText,
     StyledInputTypeRadio,
     StyledInputTypeFile
 } from "shared/ui";
 
-interface InputFieldProps {
-    type?: "text" | "email" | "tel" | "radio" | "file";
-    label: string;
-    value?: string | number;
-    "aria-invalid"?: boolean;
-    "aria-errormessage"?: string | undefined;
-    helperText?: string;
-}
+// interface InputFieldProps {
+//     type?: "text" | "email" | "tel" | "radio" | "file";
+//     label: string;
+//     value?: string | number;
+//     "aria-invalid"?: boolean;
+//     errorText?: string | undefined;
+//     helperText?: string;
+// }
 
-// type InputFieldProps =
-//     | {
-//           type?: "text" | "email" | "tel";
-//           label: string;
-//           value?: never;
-//           "aria-invalid": boolean;
-//           "aria-errormessage": string | undefined;
-//           helperText?: string;
-//       }
-//     | {
-//           type: "radio";
-//           label: string;
-//           value: string | number;
-//           "aria-invalid": undefined;
-//           "aria-errormessage": never;
-//           helperText: never;
-//       }
-//     | {
-//           type: "file";
-//           label: string;
-//           value: FileList;
-//           "aria-invalid": undefined;
-//           "aria-errormessage": never;
-//           helperText: never;
-//       };
+type InputFieldProps =
+    | {
+          type?: "text" | "email" | "tel";
+          label: string;
+          value?: never;
+          "aria-invalid": boolean;
+          errorText: string | undefined;
+          helperText?: string;
+      }
+    | {
+          type: "radio";
+          label: string;
+          value: string | number;
+          "aria-invalid": undefined;
+          errorText: never;
+          helperText: never;
+      }
+    | {
+          type: "file";
+          label: string;
+          value: FileList;
+          "aria-invalid": undefined;
+          errorText: never;
+          helperText: never;
+      };
 
-export const Input = forwardRef<HTMLInputElement, InputFieldProps>(
+export const Input = forwardRef<
+    HTMLInputElement,
+    InputFieldProps & ReturnType<UseFormRegister<NewUser>>
+>(
     (
         {
             type,
             label,
             value,
             "aria-invalid": ariaInvalid,
-            "aria-errormessage": ariaErrorMessage,
+            errorText,
             helperText,
             ...props
         },
-        ref
+        reference
     ) => {
+        const { ref, ...restProps } = props;
+
         const inputRef = useRef<HTMLInputElement>(null);
 
-        useImperativeHandle(ref, () => inputRef.current as HTMLInputElement);
+        useImperativeHandle(
+            reference,
+            () => inputRef.current as HTMLInputElement
+        );
 
         const loadFile = () => {
             if (inputRef.current) inputRef.current.click();
@@ -68,7 +79,7 @@ export const Input = forwardRef<HTMLInputElement, InputFieldProps>(
                         type={type}
                         value={value}
                         ref={inputRef}
-                        {...props}
+                        {...restProps}
                     />
                     <span>{label}</span>
                 </StyledInputTypeRadio>
@@ -83,7 +94,7 @@ export const Input = forwardRef<HTMLInputElement, InputFieldProps>(
                         aria-errormessage="photo-error"
                         hidden
                         ref={inputRef}
-                        {...props}
+                        {...restProps}
                     />
                     <button
                         type="button"
@@ -91,17 +102,12 @@ export const Input = forwardRef<HTMLInputElement, InputFieldProps>(
                     >
                         upload
                     </button>
-                    <span>
-                        {(inputRef.current &&
-                            inputRef.current.files &&
-                            inputRef.current.files[0]?.name) ||
-                            "Upload your image"}
-                    </span>
+                    <span id="photo-name">Upload your image</span>
                     <output
                         id="photo-error"
                         role="alert"
                     >
-                        {ariaInvalid && ariaErrorMessage}
+                        {ariaInvalid ? errorText : null}
                     </output>
                 </StyledInputTypeFile>
             );
@@ -114,22 +120,20 @@ export const Input = forwardRef<HTMLInputElement, InputFieldProps>(
                     placeholder={label}
                     aria-invalid={ariaInvalid}
                     aria-errormessage={`${props.name}-error`}
-                    ref={inputRef}
                     aria-describedby={`${props.name}-help`}
-                    {...props}
+                    ref={inputRef}
+                    {...restProps}
                 />
-                {ariaErrorMessage ? (
+                {ariaInvalid ? (
                     <output
                         id={`${props.name}-error`}
                         role="alert"
                     >
-                        {ariaErrorMessage}
+                        {errorText}
                     </output>
-                ) : (
-                    helperText && (
-                        <output id={`${props.name}-help`}>{helperText}</output>
-                    )
-                )}
+                ) : helperText ? (
+                    <output id={`${props.name}-help`}>{helperText}</output>
+                ) : null}
             </StyledInputTypeText>
         );
     }

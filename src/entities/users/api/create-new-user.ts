@@ -1,5 +1,9 @@
 import { axios } from "shared";
-import { NewUser, GetTokenResponse, CreateNewUserResponse } from "../types";
+import {
+    NewUser,
+    GetTokenResponse,
+    CreateNewUserSuccessResponse
+} from "../types";
 
 const getToken = async () => {
     const {
@@ -15,11 +19,15 @@ export const createNewUser = async (userFormData: NewUser) => {
     Object.entries(userFormData).forEach(([key, value]) => {
         userData.append(
             key,
-            value instanceof FileList ? value[0] : (value as string)
+            value instanceof FileList
+                ? value[0]
+                : // : key === "email"
+                  // ? (value as string).toLowerCase()
+                  (value as string)
         );
     });
 
-    const { data } = await axios.post<CreateNewUserResponse>(
+    const { data } = await axios.post<CreateNewUserSuccessResponse>(
         "/users",
         userData,
         {

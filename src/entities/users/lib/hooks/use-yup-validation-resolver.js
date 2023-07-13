@@ -45,7 +45,7 @@ export const validationSchema = object({
     phone: string()
         .required("Phone is required field")
         .matches(/^[+]{0,1}380([0-9]{9})$/, "Invalid format of phone number"),
-    position_id: number().required(),
+    position_id: number().required().positive(),
     photo: mixed()
         .test("required", "File is required field", fileList => {
             return fileList && fileList[0];

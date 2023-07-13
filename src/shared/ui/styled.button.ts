@@ -1,16 +1,15 @@
 import styled from "styled-components";
+import { ThemeType } from "styles/theme/defaultTheme";
 
-export const StyledButton = styled.button`
+export const StyledButton = styled.button<{ theme: ThemeType }>`
     min-width: 100px;
     width: max-content;
     padding: 4px 18px;
 
-    font-family: Nunito;
+    font-family: ${({ theme }) => theme.font.primary};
     font-size: 1rem;
-    line-height: 1.625;
 
-    color: rgba(0, 0, 0, 0.87);
-    background-color: #f4e041;
+    background-color: ${({ theme }) => theme.colors.yellow};
 
     border-radius: 80px;
 

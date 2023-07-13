@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { ThemeType } from "styles/theme/defaultTheme";
 
 export const StyledInputTypeText = styled.label`
     width: 100%;
@@ -83,7 +84,7 @@ export const StyledInputTypeText = styled.label`
     }
 `;
 
-export const StyledInputTypeRadio = styled.label`
+export const StyledInputTypeRadio = styled.label<{ theme: ThemeType }>`
     width: max-content;
     display: flex;
     align-items: center;
@@ -106,10 +107,7 @@ export const StyledInputTypeRadio = styled.label`
         cursor: pointer;
 
         &:checked {
-            /* height: 1.25rem;
-            width: 1.25rem; */
-            /* border-radius: 50%; */
-            border: 1px solid #00bdd3;
+            border: ${({ theme }) => `1px solid ${theme.colors.blue}`};
         }
 
         &:checked::before {
@@ -121,7 +119,7 @@ export const StyledInputTypeRadio = styled.label`
             left: 50%;
             border-radius: 50%;
             transform: translate(-50%, -50%);
-            background-color: #00bdd3;
+            background-color: ${({ theme }) => theme.colors.blue};
         }
     }
 `;
@@ -139,8 +137,7 @@ export const StyledInputTypeFile = styled.label`
     cursor: pointer;
 
     & > button {
-        height: 100%;
-        padding-inline: 1rem;
+        padding: 0.875rem;
 
         font-family: Nunito;
         font-size: 1rem;
@@ -161,23 +158,9 @@ export const StyledInputTypeFile = styled.label`
 
     & > span {
         display: inline-block;
-        text-align: center;
-        /* line-height: 54px; */
-        vertical-align: middle;
 
-        /* grid-template-columns: minmax(0, 1fr); */
-
-        height: 100%;
         width: 100%;
-        /* width: fit-content; */
-        /* flex: 1 1 auto; */
-
-        place-content: center left;
-
-        align-content: center;
-        align-self: center;
-
-        padding-inline: 1rem;
+        padding: 0.875rem 1rem;
 
         color: #7e7e7e;
         border-right: 1px solid #d0cfcf;

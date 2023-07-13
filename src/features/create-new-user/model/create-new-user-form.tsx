@@ -1,3 +1,5 @@
+import { SubmitHandler } from "react-hook-form";
+
 import {
     useUserDataValidation,
     useCreateNewUser,
@@ -8,31 +10,40 @@ import { Input, StyledButton, SuccessRegistration } from "shared/ui";
 
 import { StyledForm } from "../ui";
 
-// function formatPhoneNumber(phoneNumber: string) {
-//     // Удаляем все символы, кроме цифр
-//     const cleaned = phoneNumber.replace(/\D/g, "");
-
-//     // Применяем формат к номеру телефона
-//     const formatted = cleaned.replace(
-//         /(\d{3})(\d{3})(\d{2})(\d{2})/,
-//         "+38 ($1) $2-$3-$4"
-//     );
-
-//     return formatted;
-// }
-
 const CreateNewUserForm = () => {
     const {
         register,
-        formState: { errors, isValid },
+        formState: {
+            errors: { name, email, phone, photo },
+            isValid
+        },
         handleSubmit
     } = useUserDataValidation();
 
-    const { mutate, isSuccess, isPending } = useCreateNewUser();
+    const { mutate, isSuccess, isPending, error } = useCreateNewUser();
 
-    const createNewUser = async (data: NewUser) => {
+    const updateFilename: React.ChangeEventHandler<
+        HTMLInputElement
+    > = event => {
+        const imageNameElement = document.getElementById("photo-name");
+
+        if (!imageNameElement) return;
+
+        const [image] = Array.from(event.target.files as FileList) as File[];
+
+        if (!image) {
+            imageNameElement.innerText = "Upload your image";
+            return;
+        }
+
+        imageNameElement.innerText = image?.name;
+    };
+
+    const createNewUser: SubmitHandler<NewUser> = data => {
         mutate(data);
     };
+
+    console.log("Error: ", error);
 
     return (
         <>
@@ -48,55 +59,24 @@ const CreateNewUserForm = () => {
                         <fieldset>
                             <Input
                                 label="your name"
-                                aria-invalid={!!errors?.name}
-                                aria-errormessage={errors.name?.message}
-                                {...register("name", {
-                                    required: "Name is required field",
-                                    minLength: {
-                                        value: 3,
-                                        message: "Min name length 3 symbols"
-                                    },
-                                    maxLength: {
-                                        value: 60,
-                                        message: "Max name length 60 symbols"
-                                    }
-                                    // onChange: (event) => {
-                                    //     console.log(event.target.value);
-                                    //     event.target.value = formatPhoneNumber(
-                                    //         event.target.value
-                                    //     );
-                                    // },
-                                })}
+                                aria-invalid={!!name}
+                                errorText={name?.message}
+                                {...register("name")}
                             />
                             <Input
                                 type="email"
                                 label="email"
-                                aria-invalid={!!errors?.email}
-                                aria-errormessage={errors.email?.message}
-                                {...register("email", {
-                                    required: "Email is required field"
-                                })}
+                                aria-invalid={!!email}
+                                errorText={email?.message}
+                                {...register("email")}
                             />
                             <Input
                                 type="tel"
                                 label="phone"
+                                aria-invalid={!!phone}
                                 helperText="+38 (XXX) XXX - XX - XX"
-                                aria-invalid={!!errors?.phone}
-                                aria-errormessage={errors.phone?.message}
-                                {...register("phone", {
-                                    required: "Phone is required field",
-                                    pattern: {
-                                        value: /^[+]{0,1}380([0-9]{9})$/,
-                                        message:
-                                            "Invalid format of phone number"
-                                    }
-                                    // onChange: (event) => {
-                                    //     console.log(event.target.value);
-                                    //     event.target.value = formatPhoneNumber(
-                                    //         event.target.value
-                                    //     );
-                                    // },
-                                })}
+                                errorText={phone?.message}
+                                {...register("phone")}
                             />
                         </fieldset>
                         <fieldset>
@@ -110,12 +90,7 @@ const CreateNewUserForm = () => {
                                                     type="radio"
                                                     label={position.name}
                                                     value={position.id}
-                                                    {...register(
-                                                        "position_id",
-                                                        {
-                                                            required: true
-                                                        }
-                                                    )}
+                                                    {...register("position_id")}
                                                 />
                                             ))}
                                         </>
@@ -125,42 +100,13 @@ const CreateNewUserForm = () => {
                         </fieldset>
                         <Input
                             type="file"
-                            accept={".jpg, .jpeg, .png"}
+                            accept={"image/jpg, image/jpeg, image/png"}
                             multiple={false}
-                            aria-invalid={!!errors?.photo}
-                            aria-errormessage={errors.photo?.message}
+                            aria-invalid={!!photo}
+                            aria-errormessage={photo?.message}
                             {...register("photo", {
                                 required: "Photo is required field",
-                                validate: {
-                                    minSize: value => {
-                                        const image = new Image();
-                                        image.src = URL.createObjectURL(
-                                            value[0]
-                                        );
-
-                                        image.onload = () => {
-                                            if (image.width <= 70)
-                                                return "Image width is smaller than the minimum limit (70px)";
-                                            if (image.height <= 70)
-                                                return "Image height is smaller than the minimum limit (70px)";
-                                        };
-
-                                        return true;
-                                    },
-                                    maxSize: value => {
-                                        return (
-                                            value[0]?.size <= 10485760 ||
-                                            "File size exceeds the maximum limit (10MB)"
-                                        );
-                                    }
-                                },
-                                onChange: event => {
-                                    const image = event.target.files[0] || null;
-                                    if (image) {
-                                        console.log(image);
-                                    }
-                                    console.log(image);
-                                }
+                                onChange: updateFilename
                             })}
                         />
                     </StyledForm>

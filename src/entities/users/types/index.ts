@@ -39,8 +39,18 @@ export interface GetTokenResponse {
     token: string;
 }
 
-export interface CreateNewUserResponse {
+export interface CreateNewUserSuccessResponse {
     user_id: number;
     success: boolean;
     message: string;
+}
+
+export type Fails = {
+    [Property in keyof NewUser]?: string[];
+};
+
+export interface CreateNewUserErrorResponse {
+    success: boolean;
+    message: string;
+    fails: Fails;
 }

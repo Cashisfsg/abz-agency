@@ -5,7 +5,12 @@ import {
 } from "@tanstack/react-query";
 
 import { createNewUser } from "../../api";
-import { NewUser, GetUsersResponse } from "../../types";
+import {
+    NewUser,
+    GetUsersResponse,
+    CreateNewUserErrorResponse
+} from "../../types";
+import { AxiosError } from "axios";
 
 export const useCreateNewUser = () => {
     const queryClient = useQueryClient();
@@ -39,6 +44,18 @@ export const useCreateNewUser = () => {
                     throwOnError: true,
                     cancelRefetch: true
                 }
+            );
+        },
+
+        onError: (error: AxiosError<CreateNewUserErrorResponse, any>) => {
+            if (!error?.response?.data?.fails) {
+                alert(error?.message);
+                return;
+            }
+            alert(
+                Object.values(error?.response?.data?.fails)
+                    .flatMap(fail => fail.join(", "))
+                    .join(", ")
             );
         }
     });

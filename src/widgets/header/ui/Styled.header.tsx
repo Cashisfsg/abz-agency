@@ -6,7 +6,8 @@ export const StyledHeader = styled.header`
     height: 60px;
     width: 100%;
 
-    padding: 0.75rem 0 0.75rem;
+    padding-top: 0.75rem;
+    padding-bottom: 0.75rem;
 
     display: flex;
     align-items: center;
