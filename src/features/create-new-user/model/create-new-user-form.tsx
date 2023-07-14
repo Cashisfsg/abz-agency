@@ -20,7 +20,7 @@ const CreateNewUserForm = () => {
         handleSubmit
     } = useUserDataValidation();
 
-    const { mutate, isSuccess, isPending, error } = useCreateNewUser();
+    const { mutate, isSuccess, isPending } = useCreateNewUser();
 
     const updateFilename: React.ChangeEventHandler<
         HTMLInputElement
@@ -42,8 +42,6 @@ const CreateNewUserForm = () => {
     const createNewUser: SubmitHandler<NewUser> = data => {
         mutate(data);
     };
-
-    console.log("Error: ", error);
 
     return (
         <>

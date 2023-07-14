@@ -2,7 +2,7 @@ import { memo } from "react";
 
 import { User } from "../../types";
 import { StyledCard } from "./styled.user-card";
-import { Tooltip } from "features/tooltip";
+import { Tooltip } from "shared/ui/tooltip";
 
 interface UserCardProps {
     user: User;

@@ -22,13 +22,15 @@ export const StyledCard = styled.li.attrs({ role: "listitem" })`
         border-radius: 50%;
     }
 
-    & *:not(img, a, label) {
+    & *:not(img) {
+        display: block;
         width: 100%;
         overflow: hidden;
         text-align: center;
     }
 
     & a {
+        margin-inline: auto;
         width: max-content;
         text-decoration: none;
         color: inherit;
