@@ -22,16 +22,24 @@ export const StyledCard = styled.li.attrs({ role: "listitem" })`
         border-radius: 50%;
     }
 
-    & *:not(img) {
+    & *:not(img, a) {
         display: block;
         width: 100%;
         overflow: hidden;
         text-align: center;
     }
 
+    & > div {
+        font-size: 0;
+    }
+
     & a {
-        margin-inline: auto;
+        display: inline-block;
         width: max-content;
+        max-width: 100%;
+
+        overflow-x: hidden;
+
         text-decoration: none;
         color: inherit;
     }
@@ -41,5 +49,6 @@ export const StyledCard = styled.li.attrs({ role: "listitem" })`
         text-overflow: ellipsis;
         white-space: nowrap;
         text-align: center;
+        font-size: 1rem;
     }
 `;
