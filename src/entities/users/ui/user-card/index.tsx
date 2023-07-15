@@ -1,7 +1,7 @@
 import { memo } from "react";
 
 import { User } from "../../types";
-import { StyledCard } from "./styled.user-card";
+import { StyledUserCard } from "./styled.user-card";
 import { Tooltip } from "shared/ui/tooltip";
 
 interface UserCardProps {
@@ -10,7 +10,7 @@ interface UserCardProps {
 
 export const UserCard: React.FC<UserCardProps> = memo(({ user }) => {
     return (
-        <StyledCard>
+        <StyledUserCard>
             <img
                 src={user.photo}
                 alt={user.name}
@@ -31,6 +31,6 @@ export const UserCard: React.FC<UserCardProps> = memo(({ user }) => {
                 </Tooltip>
                 <p>{user.phone}</p>
             </div>
-        </StyledCard>
+        </StyledUserCard>
     );
 });

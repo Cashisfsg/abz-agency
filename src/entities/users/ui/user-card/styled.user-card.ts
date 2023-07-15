@@ -1,27 +1,7 @@
 import styled from "styled-components";
+import { StyledCard } from "shared/ui";
 
-export const StyledCard = styled.li.attrs({ role: "listitem" })`
-    width: 100%;
-
-    padding: 1.25rem;
-
-    display: grid;
-    gap: 1.25rem;
-    place-items: center;
-
-    background-color: #fff;
-    border-radius: 1rem;
-
-    overflow: hidden;
-    list-style-type: none;
-
-    & > img {
-        display: block;
-        height: 70px;
-        width: 70px;
-        border-radius: 50%;
-    }
-
+export const StyledUserCard = styled(StyledCard)`
     & *:not(img, a) {
         display: block;
         width: 100%;

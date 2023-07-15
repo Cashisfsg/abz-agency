@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ThemeType } from "styles/theme/defaultTheme";
+import { ThemeType } from "app/styles/styled/default-theme";
 
 export const StyledInputTypeText = styled.label`
     width: 100%;

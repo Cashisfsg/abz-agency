@@ -1,3 +1,5 @@
+import { Preloader } from "shared/ui";
+
 import { useUsersQuery } from "../lib";
 import { User } from "../types";
 
@@ -9,22 +11,28 @@ interface FetchUsersProps {
 
 const FetchUsers: React.FC<FetchUsersProps> = ({
     renderSuccess,
-    loadingFallback = <pre>Loading...</pre>,
-    renderError = error => <pre>{JSON.stringify(error)}</pre>
+    loadingFallback = <Preloader />,
+    renderError = error => <pre>{error}</pre>
 }) => {
-    const { data, status, error } = useUsersQuery();
+    const { data, status, error, isFetchingNextPage } = useUsersQuery();
 
     if (status === "error") return renderError(error.message);
     if (status === "pending") return loadingFallback;
-    if (data && data.pages && data.pages.length !== 0)
-        return renderSuccess(
-            data.pages
-                .flatMap(data => data?.users)
-                .sort(
-                    (a, b) =>
-                        b.registration_timestamp - a.registration_timestamp
-                )
-        );
+    if (data && data.pages && data.pages.length !== 0) {
+        console.log(new Array(6).map((_, i) => ({})));
+
+        const users = data.pages
+            .flatMap(data => data?.users)
+            .sort(
+                (a, b) => b.registration_timestamp - a.registration_timestamp
+            );
+
+        if (isFetchingNextPage) {
+            return renderSuccess([...users, ...Array(6)]);
+        }
+
+        return renderSuccess(users);
+    }
 
     return <></>;
 };

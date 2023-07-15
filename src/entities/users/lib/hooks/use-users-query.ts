@@ -17,20 +17,6 @@ export const useUsersQuery = () => {
                 ? { page: lastPage.page + 1, count: lastPage.count }
                 : undefined;
         }
-        // onSuccess: () => {
-        //     queryClient.prefetchInfiniteQuery(
-        //         ["users", "infinite"],
-        //         lastPage =>
-        //             getUsers({
-        //                 page: lastPage.page + 1,
-        //                 count: lastPage.count
-        //             })
-        //     );
-        // }
-        // select: (data) => {
-        //     console.log("Select  data: " + data.pages[0].users[1].name);
-        //     return data;
-        // },
     });
 
     return queryClient;

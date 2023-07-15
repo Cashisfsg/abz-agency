@@ -1,6 +1,7 @@
 import styled from "styled-components";
 
 export const StyledTooltip = styled.span`
+    display: none;
     position: fixed;
     top: 50%;
     left: 50%;

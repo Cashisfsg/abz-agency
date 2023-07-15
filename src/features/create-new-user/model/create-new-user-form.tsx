@@ -101,9 +101,8 @@ const CreateNewUserForm = () => {
                             accept={"image/jpg, image/jpeg, image/png"}
                             multiple={false}
                             aria-invalid={!!photo}
-                            aria-errormessage={photo?.message}
+                            errorText={photo?.message}
                             {...register("photo", {
-                                required: "Photo is required field",
                                 onChange: updateFilename
                             })}
                         />

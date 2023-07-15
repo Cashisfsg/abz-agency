@@ -3,7 +3,7 @@ import { ThemeProvider } from "styled-components";
 
 import { GlobalStyle } from "app/styles";
 
-import { defaultTheme } from "styles/theme/defaultTheme";
+import { defaultTheme } from "app/styles/styled/default-theme";
 
 export const StyledThemeProvider = ({
     children,

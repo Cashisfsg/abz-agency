@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 
 import "./app/index.css";
 
-import Preloader from "./components/UI/Preloader";
+import { Preloader } from "shared/ui";
 
 const App = lazy(() => import("./app"));
 

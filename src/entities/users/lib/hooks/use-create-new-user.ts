@@ -49,7 +49,7 @@ export const useCreateNewUser = () => {
 
         onError: (error: AxiosError<CreateNewUserErrorResponse, any>) => {
             if (!error?.response?.data?.fails) {
-                alert(error?.message);
+                alert(error?.response?.data?.message || error?.message);
                 return;
             }
             alert(
