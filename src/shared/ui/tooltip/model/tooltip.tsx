@@ -38,8 +38,6 @@ export const Tooltip: React.FC<TooltipProps> = ({ children }) => {
                         16 >
                     viewportWidth - 32
                 ) {
-                    console.log("tooltip");
-
                     tooltipElement.style.left = `calc(${
                         viewportWidth -
                         32 -

@@ -21,9 +21,9 @@ export const createNewUser = async (userFormData: NewUser) => {
             key,
             value instanceof FileList
                 ? value[0]
-                : // : key === "email"
-                  // ? (value as string).toLowerCase()
-                  (value as string)
+                : key === "email"
+                ? (value as string).toLowerCase()
+                : (value as string)
         );
     });
 

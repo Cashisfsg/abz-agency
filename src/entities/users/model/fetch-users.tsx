@@ -19,8 +19,6 @@ const FetchUsers: React.FC<FetchUsersProps> = ({
     if (status === "error") return renderError(error.message);
     if (status === "pending") return loadingFallback;
     if (data && data.pages && data.pages.length !== 0) {
-        console.log(new Array(6).map((_, i) => ({})));
-
         const users = data.pages
             .flatMap(data => data?.users)
             .sort(

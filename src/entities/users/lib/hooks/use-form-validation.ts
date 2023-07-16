@@ -9,7 +9,8 @@ export const useUserDataValidation = () => {
     const yupResolver = useYupValidationResolver(validationSchema);
 
     const formValidator = useForm<NewUser>({
-        mode: "onChange",
+        mode: "onTouched",
+        reValidateMode: "onChange",
         resolver: yupResolver,
         defaultValues: { name: "", email: "", phone: "+380", position_id: "1" }
     });

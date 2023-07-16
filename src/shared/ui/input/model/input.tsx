@@ -37,7 +37,7 @@ type InputFieldProps =
     | {
           type: "file";
           label: string;
-          value: FileList;
+          value: never;
           "aria-invalid": undefined;
           errorText: never;
           helperText: never;

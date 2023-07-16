@@ -1,7 +1,6 @@
 import { StyledUsersList } from "./styled.users-list";
 import { UserCard } from "../user-card";
 import { FetchMoreUsersButton } from "../../model";
-// import SkeletonCard from "components/SkeletonCard";
 
 import { SkeletonCard } from "../skeleton-card";
 

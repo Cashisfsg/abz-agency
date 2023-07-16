@@ -1,4 +1,10 @@
-import { Header, Banner, UsersSection, CreateUserSection } from "widgets";
+import {
+    Header,
+    Banner,
+    UsersSection,
+    CreateUserSection,
+    SuccessRegistrationSection
+} from "widgets";
 import { StyledMain } from "./ui";
 
 export const MainPage = () => {
@@ -9,6 +15,7 @@ export const MainPage = () => {
                 <Banner />
                 <UsersSection />
                 <CreateUserSection />
+                <SuccessRegistrationSection />
             </StyledMain>
         </>
     );

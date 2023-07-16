@@ -3,6 +3,7 @@ import {
     useMutation,
     InfiniteData
 } from "@tanstack/react-query";
+import { AxiosError } from "axios";
 
 import { createNewUser } from "../../api";
 import {
@@ -10,9 +11,8 @@ import {
     GetUsersResponse,
     CreateNewUserErrorResponse
 } from "../../types";
-import { AxiosError } from "axios";
 
-export const useCreateNewUser = () => {
+export const useCreateNewUser = (onSuccessCallback: () => void) => {
     const queryClient = useQueryClient();
 
     const createNewUserMutation = useMutation({
@@ -45,6 +45,7 @@ export const useCreateNewUser = () => {
                     cancelRefetch: true
                 }
             );
+            onSuccessCallback();
         },
 
         onError: (error: AxiosError<CreateNewUserErrorResponse, any>) => {

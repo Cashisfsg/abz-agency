@@ -8,11 +8,13 @@ import { StyledSectionContent } from "./ui";
 interface SectionContentProps {
     title: string;
     content: React.ReactNode;
+    isIntersectingEnabled?: boolean;
 }
 
 export const SectionContent: React.FC<SectionContentProps> = ({
     title,
-    content
+    content,
+    isIntersectingEnabled = true
 }) => {
     const { ref, inView } = useInView({
         triggerOnce: true,
@@ -23,10 +25,14 @@ export const SectionContent: React.FC<SectionContentProps> = ({
     return (
         <StyledSectionContent ref={ref}>
             <StyledTitle>{title}</StyledTitle>
-            {inView && (
-                <Suspense fallback={<pre>Loading suspense...</pre>}>
-                    {content}
-                </Suspense>
+            {isIntersectingEnabled ? (
+                inView && (
+                    <Suspense fallback={<pre>Loading suspense...</pre>}>
+                        {content}
+                    </Suspense>
+                )
+            ) : (
+                <>{content}</>
             )}
         </StyledSectionContent>
     );
