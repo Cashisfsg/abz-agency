@@ -14,7 +14,7 @@ export const UsersList: React.FC<UsersListProps> = ({ users }) => {
     return (
         <>
             <StyledUsersList>
-                {users.map(user => {
+                {users.map((user, i) => {
                     if (user !== undefined) {
                         return (
                             <UserCard
@@ -23,7 +23,7 @@ export const UsersList: React.FC<UsersListProps> = ({ users }) => {
                             />
                         );
                     } else {
-                        return <SkeletonCard />;
+                        return <SkeletonCard key={`key-${i}`} />;
                     }
                 })}
             </StyledUsersList>

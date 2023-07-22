@@ -5,6 +5,7 @@ import {
     CreateUserSection,
     SuccessRegistrationSection
 } from "widgets";
+
 import { StyledMain } from "./ui";
 
 export const MainPage = () => {

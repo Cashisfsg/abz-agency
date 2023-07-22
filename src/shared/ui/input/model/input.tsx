@@ -1,51 +1,61 @@
 import { useRef, useImperativeHandle, forwardRef } from "react";
-import { UseFormRegister } from "react-hook-form";
 
-import { NewUser } from "entities/users";
 import {
     StyledInputTypeText,
     StyledInputTypeRadio,
     StyledInputTypeFile
 } from "shared/ui";
 
-// interface InputFieldProps {
-//     type?: "text" | "email" | "tel" | "radio" | "file";
-//     label: string;
-//     value?: string | number;
-//     "aria-invalid"?: boolean;
-//     errorText?: string | undefined;
-//     helperText?: string;
-// }
+type InputTypeTextProps = JSX.IntrinsicElements["input"] & {
+    type?: "text" | "email" | "tel";
+    label: string;
+    value?: never;
+    "aria-invalid": boolean;
+    errorText?: string;
+    helperText?: string;
+};
 
-type InputFieldProps =
-    | {
-          type?: "text" | "email" | "tel";
-          label: string;
-          value?: never;
-          "aria-invalid": boolean;
-          errorText: string | undefined;
-          helperText?: string;
-      }
-    | {
-          type: "radio";
-          label: string;
-          value: string | number;
-          "aria-invalid": undefined;
-          errorText: never;
-          helperText: never;
-      }
-    | {
-          type: "file";
-          label: string;
-          value: never;
-          "aria-invalid": undefined;
-          errorText: never;
-          helperText: never;
-      };
+type InputTypeRadioProps = JSX.IntrinsicElements["input"] & {
+    type: "radio";
+    label: string;
+    value: string | number;
+    "aria-invalid"?: never;
+    errorText?: never;
+    helperText?: never;
+};
 
-export const Input = forwardRef<
+type InputTypeFileProps = JSX.IntrinsicElements["input"] & {
+    type: "file";
+    label?: never;
+    value?: never;
+    "aria-invalid": boolean;
+    errorText?: string;
+    helperText?: never;
+};
+
+type PolymorphicInputProps =
+    | InputTypeTextProps
+    | InputTypeRadioProps
+    | InputTypeFileProps;
+
+type PolymorphicInput = {
+    (
+        props: InputTypeTextProps,
+        ref: React.ForwardedRef<HTMLInputElement>
+    ): React.FunctionComponentElement<InputTypeTextProps>;
+    (
+        props: InputTypeRadioProps,
+        ref: React.ForwardedRef<HTMLInputElement>
+    ): React.FunctionComponentElement<InputTypeRadioProps>;
+    (
+        props: InputTypeFileProps,
+        ref: React.ForwardedRef<HTMLInputElement>
+    ): React.FunctionComponentElement<InputTypeFileProps>;
+};
+
+export const Input: PolymorphicInput = forwardRef<
     HTMLInputElement,
-    InputFieldProps & ReturnType<UseFormRegister<NewUser>>
+    PolymorphicInputProps
 >(
     (
         {
@@ -57,16 +67,11 @@ export const Input = forwardRef<
             helperText,
             ...props
         },
-        reference
+        ref
     ) => {
-        const { ref, ...restProps } = props;
-
         const inputRef = useRef<HTMLInputElement>(null);
 
-        useImperativeHandle(
-            reference,
-            () => inputRef.current as HTMLInputElement
-        );
+        useImperativeHandle(ref, () => inputRef.current as HTMLInputElement);
 
         const loadFile = () => {
             if (inputRef.current) inputRef.current.click();
@@ -79,7 +84,7 @@ export const Input = forwardRef<
                         type={type}
                         value={value}
                         ref={inputRef}
-                        {...restProps}
+                        {...props}
                     />
                     <span>{label}</span>
                 </StyledInputTypeRadio>
@@ -94,7 +99,7 @@ export const Input = forwardRef<
                         aria-errormessage="photo-error"
                         hidden
                         ref={inputRef}
-                        {...restProps}
+                        {...props}
                     />
                     <button
                         type="button"
@@ -122,7 +127,7 @@ export const Input = forwardRef<
                     aria-errormessage={`${props.name}-error`}
                     aria-describedby={`${props.name}-help`}
                     ref={inputRef}
-                    {...restProps}
+                    {...props}
                 />
                 {ariaInvalid ? (
                     <output
@@ -137,4 +142,4 @@ export const Input = forwardRef<
             </StyledInputTypeText>
         );
     }
-);
+) as PolymorphicInput;

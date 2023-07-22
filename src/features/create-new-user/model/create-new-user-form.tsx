@@ -21,17 +21,12 @@ const CreateNewUserForm = () => {
 
     const onSuccessRegistration = () => {
         const imageNameElement = document.getElementById("photo-name");
-        // const successSection = document.getElementById("banner");
 
         if (!imageNameElement) return;
 
         imageNameElement.innerText = "Upload your image";
 
         reset();
-
-        // if (successSection) {
-        //     successSection.scrollIntoView({ behavior: "smooth" });
-        // }
     };
 
     const { mutate, isPending } = useCreateNewUser(onSuccessRegistration);
